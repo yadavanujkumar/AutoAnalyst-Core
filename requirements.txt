@@ -1,0 +1,23 @@
+# Core Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+openpyxl>=3.1.0  # For Excel support
+sqlalchemy>=2.0.0
+python-dotenv>=1.0.0
+
+# Visualization
+streamlit>=1.28.0
+plotly>=5.17.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# NLP and LLM
+openai>=1.3.0
+langchain>=0.1.0
+langchain-openai>=0.0.2
+
+# Data Validation and Quality
+scikit-learn>=1.3.0
+
+# File Format Support
+python-dateutil>=2.8.2
