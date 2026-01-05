@@ -193,30 +193,6 @@ This creates sample sales data in CSV, Excel, and JSON formats in the `data/` di
 - No data is sent to external services except OpenAI API for NL queries (if enabled)
 - Generated code is executed in a safe environment with restricted builtins
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ## 📝 License
 
 This project is licensed under the terms specified in the LICENSE file.
-
-## 🙏 Acknowledgments
-
-- Built with Streamlit for rapid UI development
-- Powered by OpenAI GPT for natural language understanding
-- Uses Plotly for beautiful, interactive visualizations
-
-## 📧 Contact
-
-For questions or feedback, please open an issue on GitHub.
-
----
-
-**Made with ❤️ by the AutoAnalyst-Core Team**
