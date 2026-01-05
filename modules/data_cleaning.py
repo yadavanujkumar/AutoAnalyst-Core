@@ -82,22 +82,22 @@ class DataCleaner:
                 # Numeric columns: impute with median
                 if pd.api.types.is_numeric_dtype(df_clean[col]):
                     median_val = df_clean[col].median()
-                    df_clean[col].fillna(median_val, inplace=True)
+                    df_clean[col] = df_clean[col].fillna(median_val)
                     self.cleaning_log.append(f"Imputed missing values in '{col}' with median: {median_val}")
                 
                 # Categorical columns: impute with mode
                 elif pd.api.types.is_object_dtype(df_clean[col]) or pd.api.types.is_categorical_dtype(df_clean[col]):
                     mode_val = df_clean[col].mode()
                     if len(mode_val) > 0:
-                        df_clean[col].fillna(mode_val[0], inplace=True)
+                        df_clean[col] = df_clean[col].fillna(mode_val[0])
                         self.cleaning_log.append(f"Imputed missing values in '{col}' with mode: {mode_val[0]}")
                     else:
-                        df_clean[col].fillna('Unknown', inplace=True)
+                        df_clean[col] = df_clean[col].fillna('Unknown')
                         self.cleaning_log.append(f"Imputed missing values in '{col}' with 'Unknown'")
                 
                 # DateTime columns: forward fill
                 elif pd.api.types.is_datetime64_any_dtype(df_clean[col]):
-                    df_clean[col].fillna(method='ffill', inplace=True)
+                    df_clean[col] = df_clean[col].ffill()
                     self.cleaning_log.append(f"Forward filled missing values in '{col}'")
         
         return df_clean
