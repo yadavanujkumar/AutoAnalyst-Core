@@ -129,8 +129,13 @@ def data_ingestion_page():
     
     if uploaded_file is not None:
         try:
-            # Save uploaded file temporarily
-            temp_path = f"/tmp/{uploaded_file.name}"
+            # Save uploaded file temporarily with secure filename
+            import tempfile
+            import os
+            # Create a secure temporary file
+            suffix = os.path.splitext(uploaded_file.name)[1]
+            fd, temp_path = tempfile.mkstemp(suffix=suffix, prefix="autoanalyst_")
+            os.close(fd)  # Close the file descriptor, we'll write with open()
             with open(temp_path, "wb") as f:
                 f.write(uploaded_file.getbuffer())
             

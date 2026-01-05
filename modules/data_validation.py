@@ -95,13 +95,13 @@ class DataValidator:
         
         return duplicate_info
     
-    def check_outliers(self, df: pd.DataFrame, threshold: float = 3.0) -> Dict[str, Any]:
+    def check_outliers(self, df: pd.DataFrame, iqr_multiplier: float = 1.5) -> Dict[str, Any]:
         """
         Check for statistical outliers using IQR method
         
         Args:
             df: Input DataFrame
-            threshold: Number of standard deviations for z-score method
+            iqr_multiplier: Multiplier for IQR to determine outlier bounds (default: 1.5)
         """
         outlier_info = {
             'columns_with_outliers': [],
@@ -115,8 +115,8 @@ class DataValidator:
             Q1 = df[col].quantile(0.25)
             Q3 = df[col].quantile(0.75)
             IQR = Q3 - Q1
-            lower_bound = Q1 - 1.5 * IQR
-            upper_bound = Q3 + 1.5 * IQR
+            lower_bound = Q1 - iqr_multiplier * IQR
+            upper_bound = Q3 + iqr_multiplier * IQR
             
             outliers = df[(df[col] < lower_bound) | (df[col] > upper_bound)][col]
             

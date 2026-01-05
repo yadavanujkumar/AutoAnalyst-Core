@@ -25,7 +25,7 @@ class NLQueryEngine:
         self.query_history = []
         
         # Initialize OpenAI client if API key is available
-        if self.api_key and self.api_key != 'your_openai_api_key_here':
+        if self.api_key and self.api_key.strip() and not self.api_key.startswith('your_'):
             try:
                 from openai import OpenAI
                 self.client = OpenAI(api_key=self.api_key)
@@ -128,9 +128,15 @@ Generate pandas code to answer this question. Return only the code, starting wit
     
     def execute_query_code(self, code: str) -> Optional[pd.DataFrame]:
         """
-        Safely execute generated pandas code
+        Safely execute generated pandas code in a restricted environment
         """
         try:
+            # Validate that code doesn't contain dangerous operations
+            dangerous_keywords = ['import', 'exec', 'eval', 'compile', '__', 'open', 'file', 'os', 'sys']
+            if any(keyword in code for keyword in dangerous_keywords):
+                logger.error("Generated code contains potentially dangerous operations")
+                return None
+            
             # Create a safe execution environment
             local_vars = {
                 'df': self.df.copy(),
@@ -138,7 +144,7 @@ Generate pandas code to answer this question. Return only the code, starting wit
                 'result': None
             }
             
-            # Execute the code
+            # Execute the code with restricted builtins
             exec(code, {"__builtins__": {}}, local_vars)
             
             result = local_vars.get('result')
